@@ -4,36 +4,66 @@
 public class Request implements IRequest {
 
     public static IRequest createRequest(int type, String studentID, String courseID) {
-        return null;
+        switch (type) {
+            case REQUEST_ADD:
+                return AddRequest.createRequest(studentID, courseID);
+            case REQUEST_DROP:
+                return DropRequest.createRequest(studentID, courseID);
+            default:
+                throw new RuntimeException("Unrecognized request type");
+        }
     }
+
+    protected int requestType;
+    protected String studentID;
+    protected String courseID;
 
     protected Request()
     {
         throw new UnsupportedOperationException("Please override this method");
     }
 
+    protected Request(String studentID, String courseID) {
+        setStudentID(studentID);
+        setCourseID(courseID);
+    }
+
     @Override
     public String getStudentID() {
-        return null;
+        return studentID;
     }
 
     @Override
     public String setStudentID(String studentID) {
-        return null;
+        if (null == studentID) {
+            throw new RuntimeException("studentID cannot be null");
+        }
+        if ("".equals(studentID)) {
+            throw new RuntimeException("studentID cannot be blank");
+        }
+        this.studentID = studentID;
+        return studentID;
     }
 
     @Override
     public String getCourseID() {
-        return null;
+        return courseID;
     }
 
     @Override
     public void setCourseID(String courseID) {
-
+        if (null == courseID) {
+            throw new RuntimeException("courseID cannot be null");
+        }
+        if ("".equals(courseID)) {
+            throw new RuntimeException("courseID cannot be blank");
+        }
+        this.courseID = courseID;
     }
 
     @Override
     public int getRequestType() {
-        return 0;
+        return requestType;
     }
+
 }
