@@ -9,9 +9,14 @@ public class Registration {
     // Add new course, only request with non-exists studentID/courseID
     // is a valid request. Invalid request will cause an exception
     public void add(IRequest request) {
-        for (int i = 1 + requestList.lastIndexOf(request); i < count(); i++) {
-            IRequest opposite = requestList.get(i);
-            if (opposite.isAlmostIdentical(request)) {
+        int i = 1 + requestList.lastIndexOf(request);
+        if (i == 0) {
+            requestList.add(request);
+            return;
+        }
+        for (; i < count(); i++) {
+            IRequest dropReq = requestList.get(i);
+            if (dropReq.isAlmostIdentical(request)) {
                 requestList.add(request);
                 return;
             }
@@ -22,9 +27,14 @@ public class Registration {
     // Drop existing course, only request with existing studentID/courseID
     // is a valid request. Invalid request will cause an exception
     public void drop(IRequest request) {
-        for (int i = 1 + requestList.lastIndexOf(request); i < count(); i++) {
-            IRequest opposite = requestList.get(i);
-            if (opposite.isAlmostIdentical(request)) {
+        int i = 1 + requestList.lastIndexOf(request);
+        if (i == 0) {
+            requestList.add(request);
+            return;
+        }
+        for (; i < count(); i++) {
+            IRequest addReq = requestList.get(i);
+            if (addReq.isAlmostIdentical(request)) {
                 requestList.add(request);
                 return;
             }
@@ -34,12 +44,7 @@ public class Registration {
 
     // Check whether the request is in repository.
     public boolean exists(IRequest request) {
-        for (IRequest req : requestList) {
-            if (req.isIdentical(request)) {
-                return true;
-            }
-        }
-        return false;
+        return requestList.lastIndexOf(request) != -1;
     }
 
     // Count all requests
@@ -63,7 +68,7 @@ public class Registration {
     public int countByCourseID(String courseID) {
         int n = 0;
         for (IRequest req : requestList) {
-            if (req.getCourseID() == courseID) {
+            if (req.getCourseID().equals(courseID)) {
                 n++;
             }
         }
@@ -74,7 +79,7 @@ public class Registration {
     public int countByStudentID(String studentID) {
         int n = 0;
         for (IRequest req : requestList) {
-            if (req.getStudentID() == studentID) {
+            if (req.getStudentID().equals(studentID)) {
                 n++;
             }
         }
