@@ -28,7 +28,13 @@ public class Registration {
 
     // Count requests by request type
     public int countByType(int type) {
-        return 0;
+        int cunt = 0;
+        for (IRequest req: requestList) {
+            if (req.getRequestType() == type) {
+                cunt++;
+            }
+        }
+        return cunt;
     }
 
     // Count request by course ID

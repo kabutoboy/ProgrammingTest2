@@ -66,4 +66,11 @@ public class Request implements IRequest {
         return requestType;
     }
 
+    @Override
+    public boolean equals(IRequest req) {
+        return  this.getRequestType() == req.getRequestType()
+            &&  this.getCourseID() == req.getCourseID()
+            &&  this.getStudentID() == req.getStudentID();
+    }
+
 }
