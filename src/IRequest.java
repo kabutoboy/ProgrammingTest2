@@ -10,5 +10,6 @@ public interface IRequest {
     public String getCourseID();
     public void setCourseID(String courseID);
     public int getRequestType();
-    public boolean equals(IRequest req);
+    public boolean isIdentical(IRequest req);
+    public boolean isAlmostIdentical(IRequest req);
 }

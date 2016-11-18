@@ -67,9 +67,21 @@ public class Request implements IRequest {
     }
 
     @Override
-    public boolean equals(IRequest req) {
+    public boolean equals(Object o) {
+        IRequest req = (IRequest) o;
+        return isIdentical(req);
+    }
+
+    @Override
+    public boolean isIdentical(IRequest req) {
         return  this.getRequestType() == req.getRequestType()
             &&  this.getCourseID() == req.getCourseID()
+            &&  this.getStudentID() == req.getStudentID();
+    }
+
+    @Override
+    public boolean isAlmostIdentical(IRequest req) {
+        return  this.getCourseID() == req.getCourseID()
             &&  this.getStudentID() == req.getStudentID();
     }
 
